@@ -27,4 +27,12 @@ export const NFT_CONTRACTS: NftContract[] = [
       "https://848baf1d3aadd147b5cceb158406762a.ipfscdn.io/ipfs/QmWEC5JTxVPLWcJZBFmDXCCZJTYXbveDz29zwZBPPQ6L8n/IMG_1050-removebg-preview.png",
     type: "ERC721",
   },
+   {
+    address: "0xD531735dB0C95A22f0669990bA97C244e68f0B10",
+    chain: bitrock,
+    title: "Cool Cats",
+    thumbnailUrl:
+      "https://848baf1d3aadd147b5cceb158406762a.ipfscdn.io/ipfs/QmWEC5JTxVPLWcJZBFmDXCCZJTYXbveDz29zwZBPPQ6L8n/IMG_1050-removebg-preview.png",
+    type: "ERC721",
+  },
 ];
