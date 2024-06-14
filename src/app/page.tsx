@@ -88,7 +88,7 @@ const _latestUpdates = [
   {
     title: "Multi-chain",
     bullet_points: [
-      "Seamlessly trade and browse items on bitrock and soon on multiple chains",
+      "Seamlessly trade and browse items on bitrock",
       "New chains support coming soon",
     ],
   },
@@ -102,7 +102,7 @@ const _latestUpdates = [
   {
     title: "Upcoming features",
     bullet_points: [
-      "Select different currencies (BROCK20/ERC20) when creating listings",
+      "Select different currencies (BROCK20) when creating listings",
     ],
   },
   {
