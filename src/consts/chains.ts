@@ -14,6 +14,6 @@ export const bitrock = defineChain({
   shortName: "custom",
   testnet: false,
   slug: "bitrock",
-},
+});
 
 export default bitrock;
