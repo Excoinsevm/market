@@ -24,7 +24,7 @@ export const NFT_CONTRACTS: NftContract[] = [
     chain: bitrock,
     title: "Brock Computer Cats",
     thumbnailUrl:
-      "https://d391b93f5f62d9c15f67142e43841acc.ipfscdn.io/ipfs/bafybeicpymcc7az5mjopadvjh2lhmhgjso3l7rjdrl2rmvrqgxcyturr3q/IMG_1154.gif",
+      "https://1359df3adf00c991ec1e8d3ac7e1d8ad.ipfscdn.io/ipfs/bafybeicpymcc7az5mjopadvjh2lhmhgjso3l7rjdrl2rmvrqgxcyturr3q/IMG_1154.gif",
     type: "ERC721",
   },
    {
