@@ -2,16 +2,18 @@ import { defineChain } from "thirdweb";
 
 // Define any custom chain using `defineChain`
 export const bitrock = defineChain({
+  chain: "bitrock",
+  name: "bitrock",
   chainId: 7171,
-  name: "Bitrock",
-  rpc: ["https://connect.bit-rock.io"], // Replace with actual RPC URL
+  rpc: ["https://connect.bit-rock.io"], // Change this to an array
   nativeCurrency: {
-    name: "Bitrock",
+    name: "BROCK",
     symbol: "BROCK",
     decimals: 18,
   },
-  blockExplorers: [{ name: "Bitrock Explorer", url: "https://explorer.bit-rock.io" }], // Replace with actual explorer URL
+  shortName: "custom",
   testnet: false,
   slug: "bitrock",
-  shortName: "brock"
-});
+};
+
+export default bitrock;
