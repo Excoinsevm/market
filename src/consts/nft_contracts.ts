@@ -20,11 +20,11 @@ export type NftContract = {
  */
 export const NFT_CONTRACTS: NftContract[] = [
   {
-    address: "0xDc971D6792dBECec1a0789D87EFb0a21D553AF50",
+    address: "0x8dDEC53Ad0FbBd07FC1e5E5C238dC8B9DcE45557",
     chain: bitrock,
-    title: "PopCatRock",
+    title: "Brock Computer Cats",
     thumbnailUrl:
-      "https://848baf1d3aadd147b5cceb158406762a.ipfscdn.io/ipfs/QmWEC5JTxVPLWcJZBFmDXCCZJTYXbveDz29zwZBPPQ6L8n/IMG_1050-removebg-preview.png",
+      "https://d391b93f5f62d9c15f67142e43841acc.ipfscdn.io/ipfs/bafybeicpymcc7az5mjopadvjh2lhmhgjso3l7rjdrl2rmvrqgxcyturr3q/IMG_1154.gif",
     type: "ERC721",
   },
    {
