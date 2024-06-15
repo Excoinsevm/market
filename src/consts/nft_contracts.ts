@@ -13,7 +13,7 @@ export type NftContract = {
 };
 
 /**
- * Below is a list of all NFT contracts supported by your marketplace(s)
+ * Below is a list of all NFT contracts supported by this marketplace(s)
  * This is of course hard-coded for demo purpose
  *
  * In reality, the list should be dynamically fetched from your own data source
@@ -34,5 +34,13 @@ export const NFT_CONTRACTS: NftContract[] = [
     thumbnailUrl:
       "https://1359df3adf00c991ec1e8d3ac7e1d8ad.ipfscdn.io/ipfs/QmYSfsK91RBifXmTxkAq6qw1ddGYZBFkbxXm1CojTWF4Yt/Untitled%20design.gif",
     type: "ERC1155",
+  },
+    {
+    address: "0x87459de6dc7afeb748129f4038c8ebf8578429c9",
+    chain: bitrock,
+    title: "Rocko NFTS",
+    thumbnailUrl:
+      "https://1359df3adf00c991ec1e8d3ac7e1d8ad.ipfscdn.io/ipfs/bafybeicpymcc7az5mjopadvjh2lhmhgjso3l7rjdrl2rmvrqgxcyturr3q/IMG_1154.gif",
+    type: "ERC721",
   },
 ];
