@@ -35,12 +35,4 @@ export const NFT_CONTRACTS: NftContract[] = [
       "https://1359df3adf00c991ec1e8d3ac7e1d8ad.ipfscdn.io/ipfs/QmYSfsK91RBifXmTxkAq6qw1ddGYZBFkbxXm1CojTWF4Yt/Untitled%20design.gif",
     type: "ERC1155",
   },
-     {
-    address: "0x57d80b8A597eB23A067f36F09E27D59CF85Ba89D",
-    chain: bitrock,
-    title: "Jamma's CommMutiny",
-    thumbnailUrl:
-      "https://d391b93f5f62d9c15f67142e43841acc.ipfscdn.io/ipfs/bafybeictfuagmsxpzig3skt2s3eljo7c6uhp77wmmx7pwsfo4kevvd6ioq/4c424c44-986f-494f-b373-28c847aef442.jpg",
-    type: "ERC721",
-  },
 ];
