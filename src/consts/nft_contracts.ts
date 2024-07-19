@@ -35,4 +35,12 @@ export const NFT_CONTRACTS: NftContract[] = [
       "https://1359df3adf00c991ec1e8d3ac7e1d8ad.ipfscdn.io/ipfs/QmYSfsK91RBifXmTxkAq6qw1ddGYZBFkbxXm1CojTWF4Yt/Untitled%20design.gif",
     type: "ERC1155",
   },
+  {
+      address: "0x281F8a70b8DE841266461C36CD75B8E68B9647E0",
+    chain: bitrock,
+    title: "Lucky Charm Time & Space",
+    thumbnailUrl:
+      "https://1359df3adf00c991ec1e8d3ac7e1d8ad.ipfscdn.io/ipfs/bafybeicpymcc7az5mjopadvjh2lhmhgjso3l7rjdrl2rmvrqgxcyturr3q/IMG_1154.gif",
+    type: "ERC721",
+  },
 ];
