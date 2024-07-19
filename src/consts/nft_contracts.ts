@@ -40,7 +40,7 @@ export const NFT_CONTRACTS: NftContract[] = [
     chain: bitrock,
     title: "Lucky Charm Time & Space",
     thumbnailUrl:
-      "https://1359df3adf00c991ec1e8d3ac7e1d8ad.ipfscdn.io/ipfs/bafybeicpymcc7az5mjopadvjh2lhmhgjso3l7rjdrl2rmvrqgxcyturr3q/IMG_1154.gif",
+      "https://1359df3adf00c991ec1e8d3ac7e1d8ad.ipfscdn.io/ipfs/QmbcJHZooVP22BM9ZTRxLWNNnPzdtQxF9AhTGXoJyZxpTF/ezgif-2-e69b48ff61.gif",
     type: "ERC721",
   },
 ];
