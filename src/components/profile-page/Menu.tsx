@@ -9,8 +9,10 @@ import {
   Button,
   Flex,
   Image,
+  Input,
   Text,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 
 type Props = {
@@ -20,6 +22,12 @@ type Props = {
 
 export function ProfileMenu(props: Props) {
   const { selectedCollection, setSelectedCollection } = props;
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredCollections = NFT_CONTRACTS.filter((item) =>
+    item.title?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <Box>
       <Accordion
@@ -37,7 +45,13 @@ export function ProfileMenu(props: Props) {
             </AccordionButton>
           </Text>
           <AccordionPanel pb={4}>
-            {NFT_CONTRACTS.map((item) => (
+            <Input
+              placeholder="Search collections"
+              mb="10px"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            {filteredCollections.map((item) => (
               <Box
                 key={item.address}
                 mb="10px"

@@ -3,7 +3,7 @@ import { Providers } from "@/components/shared/Providers";
 import { Navbar } from "@/components/shared/Navbar";
 
 export const metadata: Metadata = {
-  title: "Marketplace",
+  title: "Charm Marketplace",
   description: "",
 };
 

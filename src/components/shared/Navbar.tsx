@@ -41,12 +41,11 @@ export function Navbar() {
             as={Link}
             href="/"
             _hover={{ textDecoration: "none" }}
-            bgGradient="linear(to-l, #7928CA, #FF0080)"
+            bgGradient="linear(to-l, #FFD700, #FFB700)"
             bgClip="text"
             fontWeight="extrabold"
           >
-            {/* Replace this with your own branding */}
-            POPMART
+            Lucky Charm NFTs
           </Heading>
         </Box>
         <Box display={{ lg: "block", base: "none" }}>
