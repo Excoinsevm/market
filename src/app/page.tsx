@@ -56,7 +56,7 @@ const HeroSection = () => {
         Lucky Charm NFTs
       </Heading>
       <Text fontSize="lg" mb={6} color={textColor}>
-        Discover and trade NFTs across multiple chains seamlessly.
+        Discover and trade NFTs on the Bitrock Chain seamlessly.
       </Text>
       <a href="https://www.luckycharmbitrock.net/" target="_blank" rel="noopener noreferrer">
       <Button colorScheme="teal" size="lg">
