@@ -4,7 +4,7 @@ import { Navbar } from "@/components/shared/Navbar";
 
 export const metadata: Metadata = {
   title: "Charm Marketplace",
-  description: "",
+  description: "Discover and buy unique charms on our marketplace. Explore a wide range of collections and find the perfect charm for you.",
 };
 
 export default function RootLayout({
