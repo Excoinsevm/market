@@ -29,7 +29,12 @@ export const SUPPORTED_TOKENS: SupportedTokens[] = [
         symbol: "CHARM",
         icon: "https://raw.githubusercontent.com/Excoinsevm/market/main/src/app/charm.png",
       },
-      // Add more ERC20 here...
+      {
+        tokenAddress: "0xdce5726e3bc8e1f574416978279bb0ae62ab3c15",
+        symbol: "POPCAT",
+        icon: "https://raw.githubusercontent.com/PopCatRock/token-list/main/src/tokens/CoinLogos/0xdcE5726e3Bc8E1F574416978279bb0AE62AB3c15.png",
+      },
+      // You can add more tokens here...
     ],
   },
 ];
