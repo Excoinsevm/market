@@ -25,9 +25,9 @@ export const SUPPORTED_TOKENS: SupportedTokens[] = [
     chain: bitrock,
     tokens: [
       {
-        tokenAddress: "#",
-        symbol: "POPCAT Soon",
-        icon: "https://www.geckoterminal.com/_next/image?url=https%3A%2F%2Fassets.geckoterminal.com%2Fqfziuwt7lwhpzrasswkk9u4vp1s0&w=32&q=75",
+        tokenAddress: "0xa056871e6796315c558280bff7e7f5d2c5b1f6fb",
+        symbol: "CHARM",
+        icon: "https://raw.githubusercontent.com/Excoinsevm/market/main/src/app/charm.png",
       },
       // Add more ERC20 here...
     ],
