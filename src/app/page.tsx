@@ -211,11 +211,11 @@ const _latestUpdates: Update[] = [
     title: "Multiple collections supported",
     bullet_points: [
       "The Lucky Charm NFTs supports multiple collections, you can view your owned NFTs and your listings",
-      "If you own a project and want to sell on Lucky Charm NFTs you can contact @PopCatDev on Telegram",
+      "If you wish to launch a collection on Lucky Charm NFTs you can contact @PopCatDev on Telegram",
     ],
   },
   {
-    title: "Upcoming features",
+    title: "Buy and Sell using any Currency",
     bullet_points: [
       "Select different currencies (BROCK20) when creating listings",
     ],
