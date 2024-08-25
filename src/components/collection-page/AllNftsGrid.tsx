@@ -11,6 +11,7 @@ import {
   Text,
   Button,
   Select,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import {
@@ -56,29 +57,47 @@ export function AllNftsGrid() {
   const columns = useBreakpointValue({
     base: 1,
     sm: Math.min(len, 2),
-    md: Math.min(len, 4),
+    md: Math.min(len, 3),
     lg: Math.min(len, 4),
     xl: Math.min(len, 5),
   });
 
-  console.log({ pages, currentPageIndex, length: pages.length });
   return (
     <>
-      <SimpleGrid columns={columns} spacing={4} p={4} mx="auto" mt="20px">
+      <SimpleGrid columns={columns} spacing={6} p={6} mx="auto" mt="20px">
         {allNFTs && allNFTs.length > 0 ? (
           allNFTs.map((item) => (
             <Box
               key={item.id}
-              rounded="12px"
               as={Link}
               href={`/collection/${nftContract.chain.id}/${
                 nftContract.address
               }/token/${item.id.toString()}`}
-              _hover={{ textDecoration: "none" }}
+              bg={useColorModeValue("white", "gray.800")}
+              rounded="lg"
+              shadow="lg"
+              _hover={{
+                transform: "scale(1.05)",
+                transition: "all 0.3s ease-in-out",
+              }}
+              overflow="hidden"
             >
               <Flex direction="column">
-                <MediaRenderer client={client} src={item.metadata.image} />
-                <Text>{item.metadata?.name ?? "Unknown item"}</Text>
+                <MediaRenderer
+                  client={client}
+                  src={item.metadata.image}
+                  style={{
+                    borderRadius: "lg",
+                    objectFit: "cover",
+                    width: "100%",
+                    height: "200px",
+                  }}
+                />
+                <Box p={4}>
+                  <Text fontWeight="bold" fontSize="lg" mb={2}>
+                    {item.metadata?.name ?? "Unknown item"}
+                  </Text>
+                </Box>
               </Flex>
             </Box>
           ))
@@ -122,16 +141,6 @@ export function AllNftsGrid() {
           >
             <MdKeyboardDoubleArrowRight />
           </Button>
-          {/* <Select
-            w="80px"
-            onChange={(e) => setItemsPerPage(Number(e.target.value))}
-          >
-            {[20, 40, 60].map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </Select> */}
         </Flex>
       </Box>
     </>

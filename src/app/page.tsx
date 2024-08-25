@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react'; // Import useState for managing search state
+import { useState } from 'react';
 import { NFT_CONTRACTS } from "@/consts/nft_contracts";
 import { Link } from "@chakra-ui/next-js";
 import {
@@ -14,15 +14,14 @@ import {
   useColorModeValue,
   VStack,
   Button,
-  Input, // Import Input for search bar
+  Input,
 } from "@chakra-ui/react";
 
-// Define types for the contract and update objects
 interface NftContract {
   address: string;
   chain: { id: number };
   thumbnailUrl?: string;
-  title?: string; // Make title optional
+  title?: string;
 }
 
 interface Update {
@@ -31,31 +30,37 @@ interface Update {
 }
 
 const HeroSection = () => {
-  const titleColor = useColorModeValue("#f0e68c", "#ffd700"); // Gold for title
-  const textColor = useColorModeValue("blue.800", "blue.100"); // Blue for the subtitle text
+  const titleColor = useColorModeValue("#f0e68c", "#ffd700");
+  const textColor = useColorModeValue("blue.800", "blue.100");
+  const bgGradient = useColorModeValue(
+    "linear(to-r, blue.400, purple.500)",
+    "linear(to-r, gray.700, black)"
+  );
 
   return (
     <Flex
       direction="column"
       align="center"
       justify="center"
-      bg="transparent" // Transparent background
+      bg={bgGradient}
       color={textColor}
-      py={20}
+      py={28} // Increased padding for more prominence
       px={6}
       textAlign="center"
+      borderBottomRadius="3xl" // Adds a rounded edge at the bottom
     >
       <Image 
-        src="https://raw.githubusercontent.com/Excoinsevm/S/main/charm.png" // Replace with your image path
+        src="https://raw.githubusercontent.com/Excoinsevm/S/main/charm.png"
         alt="Hero Image"
-        mb={4}
-        boxSize="150px" // Adjust the size as needed
-        borderRadius="full" // Makes the image circular
+        mb={6}
+        boxSize="200px" // Larger image size
+        borderRadius="full"
+        border="4px solid white" // Adds a border around the image for a pop effect
       />
-      <Heading as="h1" size="2xl" mb={4} color={titleColor}>
+      <Heading as="h1" size="3xl" mb={4} color={titleColor}>
         Lucky Charm NFTs
       </Heading>
-      <Text fontSize="lg" mb={6} color={textColor}>
+      <Text fontSize="xl" mb={6} color={textColor}>
         Discover and trade NFTs on the Bitrock Chain seamlessly.
       </Text>
     </Flex>
@@ -68,14 +73,16 @@ const TrendingCollections = ({ contracts, hoverEffect, cardBg, cardBorderColor }
   cardBg: string;
   cardBorderColor: string;
 }) => (
-  <VStack spacing={8} align="center" mt={10}>
-    <Heading textAlign="center">Trending Collections</Heading>
-    <Flex direction="row" wrap="wrap" gap={8} justifyContent="center">
+  <VStack spacing={12} align="center" mt={16}>
+    <Heading textAlign="center" fontSize="3xl">
+      Trending Collections
+    </Heading>
+    <Flex direction="row" wrap="wrap" gap={10} justifyContent="center">
       {contracts.map((item) => (
         <Link
           _hover={{ ...hoverEffect, textDecoration: "none" }}
-          w={240}
-          h={360}
+          w={260} // Wider cards
+          h={380} // Taller cards
           key={item.address}
           href={`/collection/${item.chain.id.toString()}/${item.address}`}
         >
@@ -85,14 +92,23 @@ const TrendingCollections = ({ contracts, hoverEffect, cardBg, cardBorderColor }
             bg={cardBg}
             border="1px"
             borderColor={cardBorderColor}
-            shadow="lg"
-            p={6}
-            borderRadius="lg"
+            shadow="2xl" // Stronger shadow
+            p={8} // More padding
+            borderRadius="2xl" // More rounded corners
             overflow="hidden"
+            transition="transform 0.3s ease" // Smooth hover effect
+            _hover={{ transform: "scale(1.05)" }} // Zoom effect on hover
           >
-            <Image src={item.thumbnailUrl ?? "/default-thumbnail.png"} alt={`${item.title} thumbnail`} borderRadius="lg" mb={4} />
-            <Text fontSize="lg" fontWeight="bold">
-              {item.title ?? "Untitled"} {/* Default value if title is undefined */}
+            <Image
+              src={item.thumbnailUrl ?? "/default-thumbnail.png"}
+              alt={`${item.title} thumbnail`}
+              borderRadius="lg"
+              mb={4}
+              boxSize="180px" // Larger image size
+              objectFit="cover"
+            />
+            <Text fontSize="lg" fontWeight="bold" textAlign="center">
+              {item.title ?? "Untitled"}
             </Text>
           </Flex>
         </Link>
@@ -107,19 +123,25 @@ const LatestUpdates = ({ updates, hoverEffect, cardBg, cardBorderColor }: {
   cardBg: string;
   cardBorderColor: string;
 }) => (
-  <VStack spacing={8} align="center" mt={20}>
-    <Heading textAlign="center">Latest Updates</Heading>
-    <Grid templateColumns="repeat(auto-fill, minmax(250px, 1fr))" gap={8} mt={6}>
+  <VStack spacing={12} align="center" mt={24}>
+    <Heading textAlign="center" fontSize="3xl">
+      Latest Updates
+    </Heading>
+    <Grid templateColumns="repeat(auto-fill, minmax(260px, 1fr))" gap={10} mt={6}>
       {updates.map((item) => (
         <GridItem
           key={item.title}
-          p={6}
+          p={8}
           border="1px"
           borderColor={cardBorderColor}
-          borderRadius="lg"
+          borderRadius="2xl"
           bg={cardBg}
-          shadow="lg"
-          _hover={hoverEffect}
+          shadow="2xl"
+          _hover={{
+            ...hoverEffect, // Spread the hoverEffect styles here
+            transform: "scale(1.05)", // Add any additional hover styles here
+          }}
+          transition="transform 0.3s ease" // This can stay outside the _hover block
         >
           <Heading size="md" mb={4}>
             {item.title}
@@ -146,13 +168,12 @@ export default function Home() {
     { boxShadow: "dark-lg", transform: "translateY(-4px)", transition: "all 0.3s" }
   );
 
-  // Update search term and filter contracts
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const term = event.target.value.toLowerCase();
     setSearchTerm(term);
     setFilteredContracts(
       NFT_CONTRACTS.filter(contract =>
-        (contract.title ?? '').toLowerCase().includes(term) // Handle undefined title
+        (contract.title ?? '').toLowerCase().includes(term)
       ) as NftContract[]
     );
   };
@@ -168,7 +189,9 @@ export default function Home() {
             onChange={handleSearch}
             mb={6}
             size="lg"
-            variant="outline"
+            variant="filled" // Changed to filled variant for better contrast
+            borderRadius="full"
+            shadow="md"
           />
           <TrendingCollections
             contracts={filteredContracts}

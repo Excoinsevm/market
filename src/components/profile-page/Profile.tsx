@@ -92,18 +92,20 @@ export function ProfileSection(props: Props) {
           item.creatorAddress.toLowerCase() === address.toLowerCase()
       )
     : [];
-  const columns = useBreakpointValue({ base: 1, sm: 2, md: 2, lg: 2, xl: 4 });
+  const columns = useBreakpointValue({ base: 1, sm: 2, md: 2, lg: 3, xl: 4 });
+
   return (
     <Box px={{ lg: "50px", base: "20px" }}>
-      <Flex direction={{ lg: "row", md: "column", sm: "column" }} gap={5}>
+      <Flex direction={{ lg: "row", md: "column", sm: "column" }} gap={5} mb={6}>
         <Img
           src={ensAvatar ?? blo(address as `0x${string}`)}
           w={{ lg: 150, base: 100 }}
-          rounded="8px"
+          borderRadius="md"
+          boxShadow="md"
         />
         <Box my="auto">
-          <Heading>{ensName ?? "Unnamed"}</Heading>
-          <Text color="gray">{shortenAddress(address)}</Text>
+          <Heading size="lg">{ensName ?? "Unnamed"}</Heading>
+          <Text color="gray.500">{shortenAddress(address)}</Text>
         </Box>
       </Flex>
 
@@ -112,14 +114,14 @@ export function ProfileSection(props: Props) {
           selectedCollection={selectedCollection}
           setSelectedCollection={setSelectedCollection}
         />
-        {isLoadingOwnedNFTs ? (
-          <Box>
-            <Text>Loading...</Text>
-          </Box>
-        ) : (
-          <>
+        <Box flex="1">
+          {isLoadingOwnedNFTs ? (
             <Box>
-              <Flex direction="row" justifyContent="space-between" px="12px">
+              <Text>Loading...</Text>
+            </Box>
+          ) : (
+            <>
+              <Flex direction="row" justifyContent="space-between" mb={4}>
                 <Tabs
                   variant="soft-rounded"
                   onChange={(index) => setTabIndex(index)}
@@ -134,7 +136,8 @@ export function ProfileSection(props: Props) {
                 </Tabs>
                 <Link
                   href={`/collection/${selectedCollection.chain.id}/${selectedCollection.address}`}
-                  color="gray"
+                  color="blue.500"
+                  fontWeight="bold"
                 >
                   View collection <ExternalLinkIcon mx="2px" />
                 </Link>
@@ -143,15 +146,13 @@ export function ProfileSection(props: Props) {
                 {tabIndex === 0 ? (
                   <>
                     {data && data.length > 0 ? (
-                      <>
-                        {data?.map((item) => (
-                          <OwnedItem
-                            key={item.id.toString()}
-                            nftCollection={contract}
-                            nft={item}
-                          />
-                        ))}
-                      </>
+                      data.map((item) => (
+                        <OwnedItem
+                          key={item.id.toString()}
+                          nftCollection={contract}
+                          nft={item}
+                        />
+                      ))
                     ) : (
                       <Box>
                         <Text>
@@ -169,46 +170,51 @@ export function ProfileSection(props: Props) {
                 ) : (
                   <>
                     {listings && listings.length > 0 ? (
-                      <>
-                        {listings?.map((item) => (
-                          <Box
-                            key={item.id}
-                            rounded="12px"
-                            as={Link}
-                            href={`/collection/${contract.chain.id}/${
-                              contract.address
-                            }/token/${item.asset.id.toString()}`}
-                            _hover={{ textDecoration: "none" }}
-                            w={250}
-                          >
-                            <Flex direction="column">
-                              <MediaRenderer
-                                client={client}
-                                src={item.asset.metadata.image}
-                              />
-                              <Text mt="12px">
-                                {item.asset?.metadata?.name ?? "Unknown item"}
-                              </Text>
-                              <Text>Price</Text>
-                              <Text>
-                                {toEther(item.pricePerToken)}{" "}
-                                {item.currencyValuePerToken.symbol}
-                              </Text>
-                            </Flex>
-                          </Box>
-                        ))}
-                      </>
+                      listings.map((item) => (
+                        <Box
+                          key={item.id}
+                          rounded="lg"
+                          borderWidth="1px"
+                          borderColor="gray.200"
+                          overflow="hidden"
+                          _hover={{ boxShadow: "lg", cursor: "pointer" }}
+                          as={Link}
+                          href={`/collection/${contract.chain.id}/${
+                            contract.address
+                          }/token/${item.asset.id.toString()}`}
+                          w="full"
+                          maxW="250px"
+                        >
+                          <Flex direction="column" p={4}>
+                            <MediaRenderer
+                              client={client}
+                              src={item.asset.metadata.image}
+                              style={{ width: '100%', height: 'auto' }}
+                            />
+                            <Text mt={2} fontWeight="bold">
+                              {item.asset?.metadata?.name ?? "Unknown item"}
+                            </Text>
+                            <Text mt={1} color="gray.600">
+                              Price
+                            </Text>
+                            <Text>
+                              {toEther(item.pricePerToken)}{" "}
+                              {item.currencyValuePerToken.symbol}
+                            </Text>
+                          </Flex>
+                        </Box>
+                      ))
                     ) : (
                       <Box>
-                        You do not have any listing with this collection
+                        <Text>You do not have any listings with this collection</Text>
                       </Box>
                     )}
                   </>
                 )}
               </SimpleGrid>
-            </Box>
-          </>
-        )}
+            </>
+          )}
+        </Box>
       </Flex>
     </Box>
   );

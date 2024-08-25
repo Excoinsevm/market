@@ -19,30 +19,49 @@ export default function BuyFromListingButton(props: Props) {
 
   const handleBuy = async () => {
     if (!listing || !activeAccount) {
-      throw new Error("No valid listing or account found");
+      toast({
+        title: "Error",
+        description: "No valid listing or account found",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
     }
 
-    return executeTransactionWithApproval({
-      chainId: 7171, // Replace with your actual chainId
-      tokenAddress: listing.currencyContractAddress, // Replace with your actual token contract address
-      spender: marketplaceContract.address,
-      amount: listing.pricePerToken, // Replace with the actual amount needed for the transaction
-      transactionCallback: async () => {
-        const tx = await buyFromListing({
-          contract: marketplaceContract,
-          listingId: listing.id,
-          quantity: listing.quantity,
-          recipient: account.address,
-        });
-        return tx;
-      },
-    });
+    try {
+      const preparedTransaction = await executeTransactionWithApproval({
+        chainId: marketplaceContract.chain.id, // Use chain ID from the marketplace contract
+        tokenAddress: listing.currencyContractAddress,
+        spender: marketplaceContract.address,
+        amount: listing.pricePerToken,
+        transactionCallback: async () => {
+          return buyFromListing({
+            contract: marketplaceContract,
+            listingId: listing.id,
+            quantity: listing.quantity,
+            recipient: account.address,
+          });
+        },
+      });
+
+      return preparedTransaction; // Ensure this is returned to be used by TransactionButton
+    } catch (error) {
+      toast({
+        title: "Purchase Failed!",
+        description: (error as Error).message,
+        status: "error",
+        duration: 7000,
+        isClosable: true,
+      });
+      throw error; // Re-throw the error to be caught by TransactionButton
+    }
   };
 
   return (
     <TransactionButton
       disabled={activeAccount?.address === listing?.creatorAddress || !listing}
-      transaction={handleBuy}
+      transaction={handleBuy} // Provide the transaction function
       onTransactionSent={() => {
         toast({
           title: "Purchasing...",

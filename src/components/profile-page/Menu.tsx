@@ -30,45 +30,45 @@ export function ProfileMenu(props: Props) {
 
   return (
     <Box>
-      <Accordion
-        allowToggle
-        defaultIndex={[0]}
-        w={{ lg: "300px", base: "90vw" }}
-      >
-        <AccordionItem>
-          <Text>
-            <AccordionButton>
-              <Box as="span" flex="1" textAlign="left">
-                Collections
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-          </Text>
-          <AccordionPanel pb={4}>
+      <Accordion allowToggle w={{ lg: "300px", base: "90vw" }}>
+        <AccordionItem border="none">
+          <AccordionButton
+            _expanded={{ bg: "teal.100", color: "teal.800" }}
+            borderRadius="md"
+            py={4}
+          >
+            <Box as="span" flex="1" textAlign="left" fontWeight="bold">
+              Collections
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel pb={4} p={2}>
             <Input
               placeholder="Search collections"
-              mb="10px"
+              mb={4}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              borderRadius="md"
             />
             {filteredCollections.map((item) => (
-              <Box
+              <Button
                 key={item.address}
-                mb="10px"
-                as={Button}
+                variant="ghost"
                 h="56px"
-                bg="transparent"
-                _hover={{ bg: "transparent" }}
-                opacity={item.address === selectedCollection.address ? 1 : 0.4}
+                mb={3}
+                borderRadius="md"
                 onClick={() => setSelectedCollection(item)}
+                w="full"
+                justifyContent="flex-start"
+                _hover={{ bg: "teal.50" }}
+                _active={{ bg: "teal.100" }}
+                opacity={item.address === selectedCollection.address ? 1 : 0.6}
               >
-                <Flex direction="row" gap="3">
-                  <Image src={item.thumbnailUrl ?? ""} w="40px" rounded="8x" />
-                  <Box my="auto">
-                    <Text>{item.title ?? "Unknown collection"}</Text>
-                  </Box>
+                <Flex direction="row" gap={3} align="center">
+                  <Image src={item.thumbnailUrl ?? ""} w="40px" borderRadius="md" />
+                  <Text>{item.title ?? "Unknown collection"}</Text>
                 </Flex>
-              </Box>
+              </Button>
             ))}
           </AccordionPanel>
         </AccordionItem>

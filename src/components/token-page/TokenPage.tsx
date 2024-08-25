@@ -17,15 +17,12 @@ import {
   Th,
   Thead,
   Tr,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { balanceOf, getNFT as getERC1155 } from "thirdweb/extensions/erc1155";
 import { getNFT as getERC721 } from "thirdweb/extensions/erc721";
-import {
-  MediaRenderer,
-  useActiveAccount,
-  useReadContract,
-} from "thirdweb/react";
+import { MediaRenderer, useActiveAccount, useReadContract } from "thirdweb/react";
 import { shortenAddress } from "thirdweb/utils";
 import { NftAttributes } from "./NftAttributes";
 import { CreateListing } from "./CreateListing";
@@ -93,78 +90,90 @@ export function Token(props: Props) {
   const ownedByYou =
     nft?.owner?.toLowerCase() === account?.address.toLowerCase();
 
+  // Type guard for attributes
+  const attributes = Array.isArray(nft?.metadata?.attributes)
+    ? nft.metadata.attributes
+    : [];
+
   return (
-    <Flex direction="column">
-      <Box mt="24px" mx="auto">
+    <Flex direction="column" p={4}>
+      <Box mt="24px" mx="auto" maxW="1200px">
         <Flex
           direction={{ lg: "row", base: "column" }}
           justifyContent={{ lg: "center", base: "space-between" }}
           gap={{ lg: 20, base: 5 }}
         >
           <Flex direction="column" w={{ lg: "45vw", base: "90vw" }} gap="5">
-            <MediaRenderer
-              client={client}
-              src={nft?.metadata.image}
-              style={{ width: "max-content", height: "auto", aspectRatio: "1" }}
-            />
+            <Box
+              borderRadius="lg"
+              overflow="hidden"
+              boxShadow="md"
+              bg="white"
+              p={2}
+            >
+              <MediaRenderer
+                client={client}
+                src={nft?.metadata.image}
+                style={{ width: "100%", height: "auto", aspectRatio: "1" }}
+              />
+            </Box>
             <Accordion allowMultiple defaultIndex={[0, 1, 2]}>
               {nft?.metadata.description && (
                 <AccordionItem>
-                  <Text>
-                    <AccordionButton>
-                      <Box as="span" flex="1" textAlign="left">
-                        Description
-                      </Box>
-                      <AccordionIcon />
-                    </AccordionButton>
-                  </Text>
+                  <AccordionButton
+                    _expanded={{ bg: useColorModeValue("gray.100", "gray.600"), color: useColorModeValue("purple.600", "purple.300") }}
+                    borderRadius="md"
+                  >
+                    <Box as="span" flex="1" textAlign="left">
+                      Description
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
                   <AccordionPanel pb={4}>
                     <Text>{nft.metadata.description}</Text>
                   </AccordionPanel>
                 </AccordionItem>
               )}
 
-              {nft?.metadata?.attributes &&
-                // @ts-ignore TODO FIx later
-                nft?.metadata?.attributes.length > 0 && (
-                  <NftAttributes attributes={nft.metadata.attributes} />
-                )}
+              {attributes.length > 0 && (
+                <NftAttributes attributes={attributes} />
+              )}
 
               {nft && <NftDetails nft={nft} />}
             </Accordion>
           </Flex>
           <Box w={{ lg: "45vw", base: "90vw" }}>
-            <Text>Collection</Text>
-            <Flex direction="row" gap="3">
-              <Heading>{contractMetadata?.name}</Heading>
+            <Text fontWeight="bold">Collection</Text>
+            <Flex direction="row" gap="3" alignItems="center">
+              <Heading size="lg">{contractMetadata?.name}</Heading>
               <Link
-                color="gray"
+                color={useColorModeValue("gray.600", "gray.300")}
                 href={`/collection/${nftContract.chain.id}/${nftContract.address}`}
+                isExternal
               >
                 <FaExternalLinkAlt size={20} />
               </Link>
             </Flex>
-            <br />
-            <Text># {nft?.id.toString()}</Text>
-            <Heading>{nft?.metadata.name}</Heading>
+            <Text mt="2"># {nft?.id.toString()}</Text>
+            <Heading size="lg">{nft?.metadata.name}</Heading>
             <br />
             {type === "ERC1155" ? (
               <>
                 {account && ownedQuantity1155 && (
                   <>
                     <Text>You own</Text>
-                    <Heading>{ownedQuantity1155.toString()}</Heading>
+                    <Heading size="md">{ownedQuantity1155.toString()}</Heading>
                   </>
                 )}
               </>
             ) : (
               <>
                 <Text>Current owner</Text>
-                <Flex direction="row">
-                  <Heading>
-                    {nft?.owner ? shortenAddress(nft.owner) : "N/A"}{" "}
+                <Flex direction="row" alignItems="center">
+                  <Heading size="md">
+                    {nft?.owner ? shortenAddress(nft.owner) : "N/A"}
                   </Heading>
-                  {ownedByYou && <Text color="gray">(You)</Text>}
+                  {ownedByYou && <Text color="gray" ml={2}>(You)</Text>}
                 </Flex>
               </>
             )}
@@ -175,19 +184,19 @@ export function Token(props: Props) {
               )}
             <Accordion
               mt="30px"
-              sx={{ container: {} }}
               defaultIndex={[0, 1]}
               allowMultiple
             >
               <AccordionItem>
-                <Text>
-                  <AccordionButton>
-                    <Box as="span" flex="1" textAlign="left">
-                      Listings ({listings.length})
-                    </Box>
-                    <AccordionIcon />
-                  </AccordionButton>
-                </Text>
+                <AccordionButton
+                  _expanded={{ bg: useColorModeValue("gray.100", "gray.600"), color: useColorModeValue("purple.600", "purple.300") }}
+                  borderRadius="md"
+                >
+                  <Box as="span" flex="1" textAlign="left">
+                    Listings ({listings.length})
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
                 <AccordionPanel pb={4}>
                   {listings.length > 0 ? (
                     <TableContainer>
@@ -272,16 +281,9 @@ export function Token(props: Props) {
 }
 
 function getExpiration(endTimeInSeconds: bigint) {
-  // Get the current date and time
   const currentDate = new Date();
-
-  // Convert seconds to milliseconds (bigint)
   const milliseconds: bigint = endTimeInSeconds * 1000n;
-
-  // Calculate the future date by adding milliseconds to the current date
   const futureDate = new Date(currentDate.getTime() + Number(milliseconds));
-
-  // Format the future date
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "short",
@@ -289,6 +291,5 @@ function getExpiration(endTimeInSeconds: bigint) {
     hour: "2-digit",
     timeZoneName: "short",
   };
-  const formattedDate = futureDate.toLocaleDateString("en-US", options);
-  return formattedDate;
+  return futureDate.toLocaleDateString("en-US", options);
 }

@@ -9,51 +9,70 @@ import {
   Text,
 } from "@chakra-ui/react";
 
+type Attribute = {
+  trait_type?: string;
+  value?: string | number | object;
+};
+
 export function NftAttributes({
   attributes,
 }: {
-  attributes: Record<string, unknown>;
+  attributes: Attribute[];
 }) {
-  /**
-   * Assume the NFT attributes follow the conventional format
-   */
-  // @ts-ignore TODO Fix later
+  // Filter attributes to get items with 'trait_type'
   const items = attributes.filter(
-    (item: Record<string, unknown>) => item.trait_type
+    (item) => item.trait_type !== undefined
   );
+
   return (
-    <AccordionItem>
-      <Text>
-        <AccordionButton>
-          <Box as="span" flex="1" textAlign="left">
-            Traits
-          </Box>
-          <AccordionIcon />
-        </AccordionButton>
-      </Text>
-      <AccordionPanel pb={4}>
-        <Flex direction="row" wrap="wrap" gap="3">
-          {/* @ts-ignore TODO Fix later */}
-          {items.map((item) => (
+    <AccordionItem border="none">
+      <AccordionButton
+        _expanded={{ bg: "gray.100", color: "blue.600" }}
+        borderRadius="md"
+        px={4}
+        py={3}
+        _hover={{ bg: "gray.200" }}
+      >
+        <Box as="span" flex="1" textAlign="left" fontWeight="bold">
+          Traits
+        </Box>
+        <AccordionIcon />
+      </AccordionButton>
+      <AccordionPanel pb={4} px={4}>
+        <Flex direction="row" wrap="wrap" gap="4">
+          {items.map((item, index) => (
             <Card
-              key={item.trait_type}
+              key={index} // Use index as key
               as={Flex}
               flexDir="column"
-              gap={2}
-              py={2}
+              gap={3}
+              py={3}
               px={4}
-              bg={"transparent"}
-              border="1px"
+              bg="white"
+              borderWidth="1px"
+              borderColor="gray.300"
+              borderRadius="md"
+              boxShadow="sm"
             >
               {item.trait_type && (
-                <Text size="label.sm" textAlign="center" lineHeight={1.2}>
+                <Text
+                  fontSize="sm"
+                  textAlign="center"
+                  fontWeight="medium"
+                  color="gray.700"
+                >
                   {item.trait_type}
                 </Text>
               )}
-              <Text size="label.md" textAlign="center" fontWeight="bold">
+              <Text
+                fontSize="md"
+                textAlign="center"
+                fontWeight="bold"
+                color="gray.800"
+              >
                 {typeof item.value === "object"
-                  ? JSON.stringify(item.value || {})
-                  : item.value}
+                  ? JSON.stringify(item.value, null, 2) // Format JSON with indentation
+                  : item.value?.toString() ?? "N/A"} {/* Ensure item.value is a string */}
               </Text>
             </Card>
           ))}

@@ -9,6 +9,7 @@ import {
   Box,
   Flex,
   useColorModeValue,
+  Divider,
 } from "@chakra-ui/react";
 import type { NFT } from "thirdweb";
 import { shortenAddress } from "thirdweb/utils";
@@ -30,33 +31,41 @@ export function NftDetails(props: Props) {
   const linkColor = useColorModeValue("purple.600", "purple.300");
 
   return (
-    <AccordionItem>
-      <AccordionButton>
-        <Box as="span" flex="1" textAlign="left">
+    <AccordionItem border="none">
+      <AccordionButton
+        _expanded={{ bg: "gray.100", color: "purple.600" }}
+        borderRadius="md"
+        px={4}
+        py={3}
+        _hover={{ bg: "gray.200" }}
+      >
+        <Box as="span" flex="1" textAlign="left" fontWeight="bold">
           Details
         </Box>
         <AccordionIcon />
       </AccordionButton>
-      <AccordionPanel pb={4}>
-        <Flex direction="row" justifyContent="space-between" mb="1">
-          <Text>Contract address</Text>
-          <Link color={linkColor} href={contractUrl} target="_blank">
-            {shortenAddress(nftContract.address)}
-          </Link>
-        </Flex>
-        <Flex direction="row" justifyContent="space-between" mb="1">
-          <Text>Token ID</Text>
-          <Link color={linkColor} href={tokenUrl} target="_blank">
-            {nft.id.toString()}
-          </Link>
-        </Flex>
-        <Flex direction="row" justifyContent="space-between" mb="1">
-          <Text>Token Standard</Text>
-          <Text>{type}</Text>
-        </Flex>
-        <Flex direction="row" justifyContent="space-between" mb="1">
-          <Text>Chain</Text>
-          <Text>{nftContract.chain.name ?? "Unnamed chain"}</Text>
+      <AccordionPanel pb={4} px={4}>
+        <Flex direction="column" gap={4}>
+          <Flex direction="row" justifyContent="space-between" alignItems="center">
+            <Text fontWeight="medium">Contract Address:</Text>
+            <Link color={linkColor} href={contractUrl} target="_blank" _hover={{ textDecoration: "underline" }}>
+              {shortenAddress(nftContract.address)}
+            </Link>
+          </Flex>
+          <Flex direction="row" justifyContent="space-between" alignItems="center">
+            <Text fontWeight="medium">Token ID:</Text>
+            <Link color={linkColor} href={tokenUrl} target="_blank" _hover={{ textDecoration: "underline" }}>
+              {nft.id.toString()}
+            </Link>
+          </Flex>
+          <Flex direction="row" justifyContent="space-between" alignItems="center">
+            <Text fontWeight="medium">Token Standard:</Text>
+            <Text>{type}</Text>
+          </Flex>
+          <Flex direction="row" justifyContent="space-between" alignItems="center">
+            <Text fontWeight="medium">Chain:</Text>
+            <Text>{nftContract.chain.name ?? "Unnamed chain"}</Text>
+          </Flex>
         </Flex>
       </AccordionPanel>
     </AccordionItem>
