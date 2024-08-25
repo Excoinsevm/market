@@ -1,11 +1,10 @@
 import { defineChain } from "thirdweb";
 
-// Define any custom chain using `defineChain`
 export const bitrock = defineChain({
   chain: "bitrock",
   name: "bitrock",
   chainId: 7171,
-  rpc: ["https://connect.bit-rock.io"], // Change this to an array
+  rpc: ["https://connect.bit-rock.io"],
   nativeCurrency: {
     name: "BROCK",
     symbol: "BROCK",

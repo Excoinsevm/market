@@ -76,17 +76,6 @@ export default function MarketplaceProvider({
     throw new Error("Marketplace not supported on this chain");
   }
 
-  const collectionSupported = NFT_CONTRACTS.find(
-    (item) =>
-      item.address.toLowerCase() === contractAddress.toLowerCase() &&
-      item.chain.id === _chainId
-  );
-  // You can remove this condition if you want to supported _any_ nft collection
-  // or you can update the entries in `NFT_CONTRACTS`
-  // if (!collectionSupported) {
-  //   throw new Error("Contract not supported on this marketplace");
-  // }
-
   const contract = getContract({
     chain: marketplaceContract.chain,
     client,

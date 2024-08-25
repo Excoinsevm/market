@@ -12,12 +12,6 @@ export type NftContract = {
   slug?: string;
 };
 
-/**
- * Below is a list of all NFT contracts supported by this marketplace(s)
- * This is of course hard-coded for demo purpose
- *
- * In reality, the list should be dynamically fetched from your own data source
- */
 export const NFT_CONTRACTS: NftContract[] = [
   {
       address: "0x281F8a70b8DE841266461C36CD75B8E68B9647E0",
@@ -35,7 +29,7 @@ export const NFT_CONTRACTS: NftContract[] = [
       "https://1359df3adf00c991ec1e8d3ac7e1d8ad.ipfscdn.io/ipfs/bafybeicpymcc7az5mjopadvjh2lhmhgjso3l7rjdrl2rmvrqgxcyturr3q/IMG_1154.gif",
     type: "ERC721",
   },
-   {
+  {
     address: "0xD531735dB0C95A22f0669990bA97C244e68f0B10",
     chain: bitrock,
     title: "Cool Cats",
@@ -43,4 +37,5 @@ export const NFT_CONTRACTS: NftContract[] = [
       "https://1359df3adf00c991ec1e8d3ac7e1d8ad.ipfscdn.io/ipfs/QmYSfsK91RBifXmTxkAq6qw1ddGYZBFkbxXm1CojTWF4Yt/Untitled%20design.gif",
     type: "ERC1155",
   },
+        // You can add more NFTs here...
 ];

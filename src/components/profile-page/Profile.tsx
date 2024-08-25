@@ -9,12 +9,12 @@ import {
   Tabs,
   Text,
   useBreakpointValue,
+  Input,
+  Button,
 } from "@chakra-ui/react";
 import { blo } from "blo";
 import { shortenAddress } from "thirdweb/utils";
-import type { Account } from "thirdweb/wallets";
-import { ProfileMenu } from "./Menu";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NFT_CONTRACTS, type NftContract } from "@/consts/nft_contracts";
 import {
   MediaRenderer,
@@ -32,6 +32,7 @@ import { getOwnedERC1155s } from "@/extensions/getOwnedERC1155s";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { useGetENSAvatar } from "@/hooks/useGetENSAvatar";
 import { useGetENSName } from "@/hooks/useGetENSName";
+import { ProfileMenu } from "./Menu";
 
 type Props = {
   address: string;
@@ -47,6 +48,23 @@ export function ProfileSection(props: Props) {
   const [selectedCollection, setSelectedCollection] = useState<NftContract>(
     NFT_CONTRACTS[0]
   );
+  const [username, setUsername] = useState<string | null>(null);
+  const [inputUsername, setInputUsername] = useState<string>("");
+
+  useEffect(() => {
+    // Retrieve username from local storage on component mount
+    const storedUsername = localStorage.getItem(`username_${address}`);
+    setUsername(storedUsername);
+  }, [address]);
+
+  const handleSetUsername = () => {
+    const formattedUsername = inputUsername.startsWith('$') ? inputUsername : `$${inputUsername}`;
+    // Save username to local storage
+    localStorage.setItem(`username_${address}`, formattedUsername);
+    setUsername(formattedUsername);
+    setInputUsername(''); // Clear input field after successful update
+  };
+
   const contract = getContract({
     address: selectedCollection.address,
     chain: selectedCollection.chain,
@@ -104,10 +122,22 @@ export function ProfileSection(props: Props) {
           boxShadow="md"
         />
         <Box my="auto">
-          <Heading size="lg">{ensName ?? "Unnamed"}</Heading>
+          <Heading size="lg">{ensName ?? username ?? "Unnamed"}</Heading>
           <Text color="gray.500">{shortenAddress(address)}</Text>
         </Box>
       </Flex>
+
+      {isYou && !username && (
+        <Flex direction="column" mt={4}>
+          <Text mb={2}>Set Your Username:</Text>
+          <Input
+            placeholder="Enter your username"
+            value={inputUsername}
+            onChange={(e) => setInputUsername(e.target.value)}
+          />
+          <Button mt={2} onClick={handleSetUsername}>Save Username</Button>
+        </Flex>
+      )}
 
       <Flex direction={{ lg: "row", base: "column" }} gap="10" mt="20px">
         <ProfileMenu
@@ -131,7 +161,6 @@ export function ProfileSection(props: Props) {
                   <TabList>
                     <Tab>Owned ({data?.length})</Tab>
                     <Tab>Listings ({listings.length || 0})</Tab>
-                    {/* <Tab>Auctions ({allAuctions?.length || 0})</Tab> */}
                   </TabList>
                 </Tabs>
                 <Link

@@ -12,14 +12,6 @@ export type SupportedTokens = {
   tokens: Token[];
 };
 
-/**
- * By default you create listings with the payment currency in the native token of the network (eth, avax, matic etc.)
- *
- * If you want to allow users to transact using different ERC20 tokens, you can add them to the config below
- * Keep in mind this is for front-end usage. Make sure your marketplace v3 contracts accept the ERC20s
- * check that in https://thirdweb.com/<chain-id>/<marketplace-v3-address>/permissions -> Asset
- * By default the Marketplace V3 contract supports any asset (token)
- */
 export const SUPPORTED_TOKENS: SupportedTokens[] = [
   {
     chain: bitrock,
