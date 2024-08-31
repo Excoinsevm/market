@@ -37,5 +37,13 @@ export const NFT_CONTRACTS: NftContract[] = [
       "https://1359df3adf00c991ec1e8d3ac7e1d8ad.ipfscdn.io/ipfs/QmYSfsK91RBifXmTxkAq6qw1ddGYZBFkbxXm1CojTWF4Yt/Untitled%20design.gif",
     type: "ERC1155",
   },
+  {
+    address: "0x11D8d0eF07BdD5b2cF684957B5B386144ece4A36",
+    chain: bitrock,
+    title: "Rock Punks (RP)",
+    thumbnailUrl:
+      "https://0a0ff0247934a01d366a8c68ebe8847a.ipfscdn.io/ipfs/bafybeiglykfhbk7apkgtpodobtbctedvy6kptirycy6kw7stns7wrr5s24/5.png",
+    type: "ERC721",
+  },
         // You can add more NFTs here...
 ];
