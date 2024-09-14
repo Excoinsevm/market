@@ -45,5 +45,13 @@ export const NFT_CONTRACTS: NftContract[] = [
       "https://0a0ff0247934a01d366a8c68ebe8847a.ipfscdn.io/ipfs/bafybeiglykfhbk7apkgtpodobtbctedvy6kptirycy6kw7stns7wrr5s24/5.png",
     type: "ERC721",
   },
+    {
+    address: "0xe1182a0e3d54025BAb41058a1d0058Bd7f6a0B3C",
+    chain: bitrock,
+    title: "Crypto Freak Trading Card - $HE-MAN",
+    thumbnailUrl:
+      "https://1359df3adf00c991ec1e8d3ac7e1d8ad.ipfscdn.io/ipfs/bafybeicr77hxsgnbmakaahbkgxmli3egqtfj6jvbxfh5zkmcmuacotggtq/download.gif",
+    type: "ERC721",
+  },
         // You can add more NFTs here...
 ];
